@@ -1,0 +1,229 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="bilet_ucusta.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BİLET 'BU'RADAN ALINIR!</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+    <style type="text/css">
+        /* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: absolute;
+  bottom: 100px;
+  right: 800px;
+  border: 3px solid #f1f1f1;
+  z-index: 9999999;
+  top:400px;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+    .menu_li{
+        font-weight:bold;
+    }
+    .uye_girisi{
+        margin-left: 1100px;
+        margin-top: 23px;
+    }
+    .menu_ul{
+        margin-top:75px;
+        margin-left: 350px;
+    }
+    .menu_a{
+        color:black;
+    }
+  </style>
+
+</head>
+<body>
+    <form runat="server" style="position:absolute;top:0px;">
+        <div id="popup-div" style="width: 100%;height: 100%;">
+        <div class="form-popup" id="myForm">
+            <div class="form-container">
+                <h3 style="margin-left:105px; display:inline; color:crimson">GİRİŞ</h3><br />
+                <h6 style="color:red;">*Lütfen şifrenizi kimseyle paylaşmayınız.</h6>
+                <label>Email:</label>
+                <asp:TextBox runat="server"  Font-Bold="true" BackColor="#ccccff" ID="email"></asp:TextBox>
+                <label>Şifre:</label>
+                <asp:TextBox runat="server" TextMode="Password" Font-Bold="true" BackColor="#ccccff" ID="sifre"></asp:TextBox>
+                <asp:Button runat="server" Text="Giriş" type="submit" class="btn" OnClick="Giris_Click"></asp:Button>
+                <asp:Button runat="server" Text="Kapatınız" class="btn cancel"></asp:Button>
+                <a href="UyeKayit.aspx">Kayıt Ol</a>
+            </div>
+        </div>
+        <asp:ScriptManager runat="server">
+
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar" style="height:250px; width:1900px; " >
+            <div style="background-image: url('img/ucak.jpg'); background-repeat: no-repeat; background-size: 1900px; background-position-y: -350px; height: 100%;">
+                <div class="container-fluid">
+                    <div class="row"">
+                        <div class="col-md-3" style="height:auto;">
+                            <img src="img/sitelogo.png" style="width:250px;margin-top:0px;" />
+                        </div>
+                        <div class="col-md-9" style="height:auto;">
+                            <div style="margin-top:20px; margin-left:200px;">
+                                   
+                                    <div style="font-size: 20px; font-family:'Playfair Display';">
+                                        <ul class="nav navbar-nav menu_ul">
+                                            <li class="menu_li"><a class="menu_a"  runat="server" href="~/">Anasayfa</a></li>
+                                            <li class="menu_li"><a class="menu_a" runat="server" href="BiletAl.aspx">Bilet Al</a></li>
+                                            <li class="menu_li"><a class="menu_a" runat="server" href="~/Contact">İletişim</a></li>
+                                            <li class="menu_li" style="color:crimson; margin-left:70px;margin-top:10px;"><button type="button" onclick="openForm()"><span class="glyphicon glyphicon-user"></span>&nbsp;|&nbsp;<span style="font-size: 14px; text-align: center; line-height: 1.1;">Üye Girişi</span></button></li>
+
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            
+        </div>
+       </div>
+    </form>
+
+    <div class="container-fluid" style="background-color:cornflowerblue; width:100%; height:130px; margin-top:2000px; position:absolute;">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="img/sitelogo.png" style="width: 145px; margin-left: 0px;" />
+        </div>
+        <div class="col-md-8">
+        <div class="row" style="margin-top:5px; margin-left:200px;">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <p style="color :white; font-size:30px;margin-top:3px; display:inline; margin-left:120px;"><span class="glyphicon glyphicon-plane"></span></p><p style="display:inline; color:white;">&nbsp;<b>İletişim:</b>(0212)878 9878</p>
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px; margin-left:200px">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <p style="color :white; font-size:30px;margin-top:3px; display:inline; margin-left:120px;"><span class="glyphicon glyphicon-plane"></span></p><p style="display:inline; color:white;">&nbsp;<b>Mail:</b>biletucusta@gmail.com</p>
+            </div>
+        </div>
+        </div>
+        
+        
+     </div>
+    </div>
+    
+    
+    <script>
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    //document.getElementById("popup-div").style.display = "block";
+    //document.getElementById("popup-div").style.backgroundColor = "black";
+
+}
+
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    //document.getElementById("popup-div").style.display = "none";
+}
+</script>
+</body>
+</html>
